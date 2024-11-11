@@ -25,6 +25,7 @@
 }
 
 - (void)requestSettingData{
+    // 서버통신 모듈
     RequestController *requestController = [[RequestController alloc] init];
     [requestController reqWithMethod:@"https://kbank.com/setting" completionHandler:^(NSData *data ,NSString *resultCd ,NSString *error){
         if (error == nil){
@@ -40,6 +41,7 @@
 }
 
 - (void)dataParsing:(NSData *)data{
+    // 서버 통신 파싱
     ParserClass *parserClass = [[ParserClass alloc] init];
     [parserClass jsonParsingData:data];
     
@@ -49,15 +51,13 @@
 }
 
 - (void)showViewData:(ParserClass *)sender{
+    //통신데이터를 파싱후 처리
     NSMutableArray *parsingList = [[NSMutableArray alloc] init];
-    
     for (NSDictionary *data in sender.arrayData) {
         SettingDto *settingDto = [[SettingDto alloc] initWithDictionary:data];
         [parsingList addObject:settingDto];
     }
-    
     self.tableList = [[NSArray alloc] initWithArray:parsingList];
-    
     [self.tableView reloadData];
     NSLog(@"show setting");
 }

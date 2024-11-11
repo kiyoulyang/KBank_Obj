@@ -13,7 +13,6 @@
     if (self = [super init]) {
         self.type = [dictionary objectForKey:@"type"];
         self.title = [dictionary objectForKey:@"title"];
-    
     }
     return self;
 }
